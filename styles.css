@@ -1,0 +1,218 @@
+/* Default styles for screen */
+.salary-print-only-view {
+    display: none;
+}
+
+/* Print Preview Mode Styles */
+.print-preview-controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(30, 41, 59, 0.95); /* bg-slate-800 with opacity */
+    color: white;
+    padding: 1rem;
+    z-index: 10000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+.print-preview-controls .content {
+    max-width: 6xl;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.print-preview-controls kbd {
+    background-color: #f1f5f9; /* slate-100 */
+    color: #1e293b; /* slate-800 */
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #94a3b8; /* slate-400 */
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.print-preview-controls button {
+    background-color: #4f46e5; /* indigo-600 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem; /* rounded-md */
+    font-weight: 600; /* font-semibold */
+    transition: background-color 0.2s;
+}
+
+.print-preview-controls button:hover {
+    background-color: #4338ca; /* indigo-700 */
+}
+
+.print-preview-mode {
+    background-color: #f1f5f9; /* slate-100 for the "desk" background */
+    overflow-y: auto; /* Ensure scrolling is possible if content is long */
+}
+
+.print-preview-mode .no-print {
+    display: none !important;
+}
+
+.print-preview-mode .printable-area {
+    /* Override component styles to look like a sheet of paper */
+    max-width: 1123px; /* A4 landscape width approximation */
+    min-height: 794px; /* A4 landscape height approximation */
+    margin: 2rem auto !important;
+    padding: 2cm !important;
+    border-radius: 0 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #cbd5e1 !important; /* slate-300 */
+    background-color: white !important;
+}
+
+.print-preview-mode .salary-inputs-container {
+    display: none !important;
+}
+
+.print-preview-mode .salary-print-only-view {
+    display: block !important;
+}
+
+/* Styles for editable cells in Hiring Proposal Modal */
+.editable-cell {
+    cursor: text;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    outline: none; /* remove default focus outline */
+}
+.editable-cell:hover {
+    background-color: #f1f5f9; /* slate-100 */
+}
+.editable-cell:focus {
+    background-color: #ffffff;
+    box-shadow: inset 0 0 0 2px #4f46e5; /* ring-2 ring-indigo-600 */
+}
+
+.multiline-cell {
+    white-space: pre-wrap;
+}
+
+
+/* Styles for printing */
+@media print {
+    /* Hide elements that shouldn't be printed */
+    .no-print, .print-preview-controls {
+        display: none !important;
+    }
+
+    /* Ensure the printable area takes up the whole page */
+    body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .print-break-inside-avoid {
+        break-inside: avoid;
+    }
+    
+    .print-page-break-before {
+        break-before: page;
+        page-break-before: page; /* Legacy fallback */
+    }
+
+    .printable-area {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 1cm !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+    }
+    
+    .print-header h2 {
+        font-size: 18pt;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Table styles for printing */
+    .print\:overflow-visible {
+        overflow: visible !important;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9pt;
+    }
+
+    th, td {
+        border: 1px solid #ccc !important;
+        padding: 6px !important;
+        vertical-align: middle;
+        -webkit-print-color-adjust: exact; /* Force background colors to print in Chrome/Safari */
+        color-adjust: exact; /* Standard */
+    }
+    
+    thead th {
+        background-color: #f1f5f9 !important; /* bg-slate-100 */
+    }
+
+    /* Hide input fields and show text view */
+    .salary-inputs-container {
+        display: none !important;
+    }
+
+    .salary-print-only-view {
+        display: block !important;
+    }
+    
+    .salary-print-only-view {
+        padding: 4px 2px;
+    }
+
+    /* Make editable cells look normal when printing */
+    .editable-cell {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* --- Infographic Modal Print Styles --- */
+    body > *:not(.infographic-modal-printable-area):not(.hiring-proposal-printable-area) {
+        display: none !important;
+    }
+
+    .infographic-modal-printable-area, .hiring-proposal-printable-area {
+        display: block !important;
+        position: static !important;
+        overflow: visible !important;
+        background-color: transparent !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
+    }
+    
+    .infographic-modal-content, .hiring-proposal-content {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 1cm !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        display: block !important;
+    }
+
+    .infographic-no-print, .hiring-proposal-no-print {
+        display: none !important;
+    }
+
+    @page {
+        size: A4;
+        margin: 1cm;
+    }
+}
